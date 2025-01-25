@@ -1,14 +1,14 @@
 import { Request, Response } from 'express'
 import z from 'zod'
-import { hash, compare } from 'bcrypt'
+import { hash } from 'bcrypt'
 import { prisma } from '../database/prisma'
 import { AppError } from '../utils/AppError'
 
 export class UserController{
     async index(req: Request, res: Response){
-        const user = await prisma.user.findMany() ?? []
+        const users = await prisma.user.findMany() ?? []
 
-        return res.json(user)
+        return res.json(users)
     }
 
     async show (req: Request, res: Response){
@@ -20,7 +20,10 @@ export class UserController{
             throw new AppError('Página não encontrada', 404)
         }
 
-        return res.json(user)
+        const { password: _, ...userWithoutPassword } = user
+
+
+        return res.json(userWithoutPassword)
     }
 
     async create(req: Request, res: Response){
@@ -48,7 +51,9 @@ export class UserController{
             }
         })
 
-        return res.status(201).json(user)
+        const { password: _, ...userWithoutPassword } = user
+
+        return res.status(201).json(userWithoutPassword)
     }
 
     async delete(req: Request, res: Response){
