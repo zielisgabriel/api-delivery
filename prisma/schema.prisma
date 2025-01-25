@@ -7,11 +7,50 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum UserRole {
+  customer
+  seller
+}
+
 model User {
-  id        String   @id @default(uuid())
-  name      String
-  email     String
-  password  String
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  id         String       @id @default(uuid())
+  name       String
+  email      String
+  password   String
+  role       UserRole     @default(customer)
+  deliveries Deliveries[]
+  createdAt  DateTime     @default(now()) @map("created_at")
+  updatedAt  DateTime?    @updatedAt @map("updated_at")
+
+  @@map("user")
+}
+
+enum DeliveriesStatus {
+  processing
+  shipped
+  delivered
+}
+
+model Deliveries {
+  id          String           @id @default(uuid())
+  userId      String           @map("user_id")
+  description String
+  status      DeliveriesStatus @default(processing)
+  user        User             @relation(fields: [userId], references: [id])
+  logs        DeliveriesLogs[]
+  createdAt   DateTime         @default(now()) @map("created_at")
+  updatedAt   DateTime?        @updatedAt @map("updated_at")
+
+  @@map("deliveries")
+}
+
+model DeliveriesLogs {
+  id          String     @id @default(uuid())
+  description String
+  deliverieId String     @map("deliverie_id")
+  deliverie   Deliveries @relation(fields: [deliverieId], references: [id])
+  createdAt   DateTime   @default(now()) @map("created_at")
+  updatedAt   DateTime?  @updatedAt @map("updated_at")
+
+  @@map("deliveries_logs")
 }
