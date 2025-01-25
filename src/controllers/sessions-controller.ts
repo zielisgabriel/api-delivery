@@ -4,7 +4,6 @@ import { AppError } from '../utils/AppError'
 import { compare } from 'bcrypt'
 import { authConfig } from '../config/auth-config'
 import { sign } from 'jsonwebtoken'
-import { string } from 'zod'
 
 export class SessionsController{
     async create(req: Request, res: Response){
