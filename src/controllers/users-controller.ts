@@ -8,7 +8,7 @@ export class UserController{
     async index(req: Request, res: Response){
         const user = await prisma.user.findMany() ?? []
 
-        res.json(user)
+        return res.json(user)
     }
 
     async show (req: Request, res: Response){
@@ -49,5 +49,13 @@ export class UserController{
         })
 
         return res.status(201).json(user)
+    }
+
+    async delete(req: Request, res: Response){
+        const { id } = req.params
+
+        await prisma.user.delete({ where: { id } })
+
+        return res.json()
     }
 }
