@@ -27,8 +27,10 @@ export class SessionsController{
         const token = sign({ role: String(userVerify.role) ?? "customer" }, secret, {
             expiresIn,
             subject: String(userVerify.id),
-          })
+        })
 
-        return res.status(201).json({ message: token })
+        const { password: _, ...userWithoutPassword } = userVerify
+
+        return res.status(201).json({ token, user: userWithoutPassword })
     }
 }
