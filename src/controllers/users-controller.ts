@@ -11,6 +11,18 @@ export class UserController{
         res.json(user)
     }
 
+    async show (req: Request, res: Response){
+        const { id } = req.params
+
+        const user = await prisma.user.findFirst({ where: { id } })
+
+        if(!user){
+            throw new AppError('Página não encontrada', 404)
+        }
+
+        return res.json(user)
+    }
+
     async create(req: Request, res: Response){
         const bodySchema = z.object({
             name: z.string().trim().min(4, 'O nome tem que ter pelo menos 4 caracteres'),
