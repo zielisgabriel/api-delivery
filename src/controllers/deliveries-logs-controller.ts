@@ -9,7 +9,7 @@ export class DeliveriesLogsController{
         if(req.user.role === 'customer'){
             const deliveries = await prisma.deliveries.findMany({
                 where: { userId: req.user.user_id }
-            })
+            }) ?? []
 
             return res.json(deliveries)
         }
