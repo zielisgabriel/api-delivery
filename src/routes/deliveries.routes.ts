@@ -7,7 +7,9 @@ const deliveresRoutes = Router()
 const deliveriesController = new DeliveriesController()
 
 deliveresRoutes.get('/', ensureAuthenticated, verifyUserAuthorization(['seller', 'admin']), deliveriesController.index)
+
 deliveresRoutes.post('/', ensureAuthenticated, verifyUserAuthorization(['seller', 'admin']), deliveriesController.create)
+
 deliveresRoutes.patch('/:id/status', ensureAuthenticated, verifyUserAuthorization(['seller', 'admin']), deliveriesController.update)
 
 export { deliveresRoutes }

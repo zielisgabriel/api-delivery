@@ -55,12 +55,4 @@ export class UserController{
 
         res.status(201).json(userWithoutPassword)
     }
-
-    async delete(req: Request, res: Response){
-        const { id } = req.params
-
-        await prisma.user.delete({ where: { id } })
-
-        res.json()
-    }
 }
