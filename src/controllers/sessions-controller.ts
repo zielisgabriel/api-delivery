@@ -31,6 +31,6 @@ export class SessionsController{
 
         const { password: _, ...userWithoutPassword } = userVerify
 
-        return res.status(201).json({ token, user: userWithoutPassword })
+        res.status(201).json({ token, user: userWithoutPassword })
     }
 }

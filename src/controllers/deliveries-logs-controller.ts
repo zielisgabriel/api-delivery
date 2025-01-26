@@ -11,14 +11,14 @@ export class DeliveriesLogsController{
                 where: { userId: req.user.user_id }
             }) ?? []
 
-            return res.json(deliveries)
+            res.json(deliveries)
         }
 
         const deliveries = await prisma.deliveriesLogs.findMany({
             include: { deliverie: { select: { description: true, status: true } } }
         }) ?? []
 
-        return res.json(deliveries)
+        res.json(deliveries)
     }
 
     async show(req: Request, res: Response){
@@ -42,7 +42,7 @@ export class DeliveriesLogsController{
             throw new AppError('Essa entrega não pertence ao seu usuário', 401)
         }
 
-        return res.json(deliverie)
+        res.json(deliverie)
     }
 
     async create(req: Request, res: Response){
@@ -69,7 +69,7 @@ export class DeliveriesLogsController{
 
         await prisma.deliveriesLogs.create({ data: { description, deliverieId: deliverie_id } })
 
-        return res.status(201).json(deliverie)
+        res.status(201).json(deliverie)
     }
 
     async delete(req: Request, res: Response){

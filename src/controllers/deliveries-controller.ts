@@ -10,7 +10,7 @@ export class DeliveriesController{
             }
         })
         
-        return res.json(deliveries)
+        res.json(deliveries)
     }
 
     async create(req: Request, res: Response){
@@ -26,7 +26,7 @@ export class DeliveriesController{
             description,
         } })
 
-        return res.status(201).json()
+        res.status(201).json()
     }
 
     async update(req: Request, res: Response){
@@ -53,6 +53,6 @@ export class DeliveriesController{
             }
         })
 
-        return res.json()
+        res.json()
     }
 }

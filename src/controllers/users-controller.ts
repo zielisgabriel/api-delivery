@@ -8,7 +8,7 @@ export class UserController{
     async index(req: Request, res: Response){
         const users = await prisma.user.findMany() ?? []
 
-        return res.json(users)
+        res.json(users)
     }
 
     async show (req: Request, res: Response){
@@ -23,7 +23,7 @@ export class UserController{
         const { password: _, ...userWithoutPassword } = user
 
 
-        return res.json(userWithoutPassword)
+        res.json(userWithoutPassword)
     }
 
     async create(req: Request, res: Response){
@@ -53,7 +53,7 @@ export class UserController{
 
         const { password: _, ...userWithoutPassword } = user
 
-        return res.status(201).json(userWithoutPassword)
+        res.status(201).json(userWithoutPassword)
     }
 
     async delete(req: Request, res: Response){
@@ -61,6 +61,6 @@ export class UserController{
 
         await prisma.user.delete({ where: { id } })
 
-        return res.json()
+        res.json()
     }
 }
