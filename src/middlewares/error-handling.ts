@@ -8,7 +8,7 @@ export function errorHandling(error: any, req: Request, res: Response, _: NextFu
     }
 
     if(error instanceof ZodError){
-        return res.status(500).json({ message: error.message })
+        return res.status(500).json({ message: JSON.parse(error.message) })
     }
 
     return res.status(500).json({ message: error.message })
