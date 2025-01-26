@@ -12,7 +12,7 @@ export class SessionsController{
         const userVerify = await prisma.user.findFirst({ where: { email } })
 
         if(!userVerify){
-            throw new AppError('Email e/ou senha incorretos')
+            throw new AppError('Email e/ou senha incorretos', 401)
         }
 
         const userVerifyPassword = await compare(password, userVerify.password)
