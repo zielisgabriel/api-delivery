@@ -8,8 +8,8 @@
   "scripts": {
     "test": "jest",
     "test:dev": "jest --watchAll --runInBand",
-    "build": "tsup ./src --out-dir build",
-    "start": "node ./build/server.js",
+    "build": "tsup src --out-dir build",
+    "start": "node build/server.js",
     "dev": "tsx watch ./src/server.ts"
   },
   "prisma": {
