@@ -2,10 +2,14 @@
   "name": "api-delivery",
   "version": "1.0.0",
   "main": "index.js",
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "test": "jest",
     "test:dev": "jest --watchAll --runInBand",
-    "build": "tsup ./src",
+    "build": "tsup ./src --out-dir build",
+    "start": "node ./build/server.js",
     "dev": "tsx watch ./src/server.ts"
   },
   "prisma": {
