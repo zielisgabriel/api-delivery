@@ -10,6 +10,6 @@ userRoutes.get('/', userController.index)
 
 userRoutes.get('/:id', userController.show)
 
-userRoutes.post('/', userController.create)
+userRoutes.post('/', ensureAuthenticated, verifyUserAuthorization(['admin', 'seller']), userController.create)
 
 export { userRoutes }
